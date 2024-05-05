@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="">
+
+  <title>CryptoCurrency</title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{{ url_for('static', filename='css/responsive.css') }}" rel="stylesheet" />
+
+</head>
+<body class="sub_page">
+
+  <div class="hero_area">
+
+    <div class="hero_bg_box">
+      <div class="bg_img_box">
+        <img src="{{ url_for('static', filename='images/hero-bg.png') }}" alt="">
+      </div>
+    </div>
+
+    <!-- header section starts -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="index.html">
+            <span>
+             CryptoCurrency
+            </span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+    </li> 
+    <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('form') }}">Results</a>
+</li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('about') }}">About</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('team') }}">Team</a>
+    </li>
+        {% if current_user.is_authenticated %}
+        <!-- Show logout option if the user is authenticated -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+        </li>
+        {% else %}
+        <!-- Show login option if the user is not authenticated -->
+        <li class="nav-item">
+            <a class="nav-link" href="#" onclick="openDialog()"> <i class="fa fa-user" aria-hidden="true"></i> Login</a>
+        </li>
+        {% endif %}
+</ul>
+
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+  </div>
+  <div class="centered-image">
+        <img src="{{ url_for('static', filename='images/graps2.PNG') }}" alt="">
+</div>
+  <!-- Flash messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div id="flash-messages">
+      {% for category, message in messages %}
+        <div id="{{ category }}" class="alert alert-{{ category }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+ <!-- text prediction form -->
+<section id="text-prediction">
+  <h2 id="h21">Text Prediction</h2>
+  <form id="predictionForm" method="POST" action="javascript:void(0);">
+    <label for="text_input" id="label1"  >Enter Text:</label><br>
+    <input type="text" id="text_input" name="text_input">
+    <!-- Display predicted sentiment here -->
+    <div id="predictionResult"></div>
+    <button type="submit">Predict Sentiment</button>
+  </form>
+</section>
+<!-- Check if user is authenticated -->
+{% if current_user.is_authenticated %}
+<h3>Upload Your File HERE </h3>
+<form id="uploadForm" enctype="multipart/form-data">
+    <label for="fileInput" id ="choose-file">Choose a file:</label>
+    <input type="file" id="fileInput" name="file" accept=".txt,.csv,.json" required><br>
+    <label for="filenameInput">Filename:</label>
+    <input type="text" id="filenameInput" name="filename" required><br><br>
+    
+    <label for="formatSelect">File Format:</label>
+    <select id="formatSelect" name="format" required>
+        <option value="csv">CSV</option>
+        <option value="json">JSON</option>
+    </select><br><br>
+    
+    <button type="submit">Upload</button>
+</form>
+{% else %}
+<h3>Please Login to Upload a File</h3>
+    <!-- Display login form if user is not authenticated -->
+    <div id="loginDialog" class="dialog">
+    <div class="dialog-content">
+        <span class="close-button" onclick="closeDialog()">&times;</span>
+        <h4>User Login</h4>
+        <form action="{{ url_for('index') }}" method="post">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br><br>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required><br><br>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <p>Not registered? <a href="{{ url_for('register') }}" onclick="openRegistrationDialog()">Register Here</a></p>
+    </div>
+</div>
+{% endif %}
+
+
+
+
+
+
+
+
+
+  <!-- info section -->
+  <section class="info_section layout_padding2">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-lg-3 info_col">
+          <div class="info_contact">
+            <h4>Address</h4>
+            <div class="contact_link_box">
+              <a href="#">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>Location</span>
+              </a>
+              <a href="#">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>Call +01 1234567890</span>
+              </a>
+              <a href="#">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>demo@gmail.com</span>
+              </a>
+            </div>
+          </div>
+          <div class="info_social">
+            <a href="#">
+              <i class="fa fa-facebook" aria-hidden="true"></i>
+            </a>
+            <a href="#">
+              <i class="fa fa-twitter" aria-hidden="true"></i>
+            </a>
+            <a href="#">
+              <i class="fa fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="#">
+              <i class="fa fa-instagram" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 info_col">
+          <div class="info_detail">
+            <h4>Info</h4>
+            <p>Explores the pulse of public opinion in Pakistan on the cryptocurrency legalization.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-2 mx-auto info_col">
+          <div class="info_link_box">
+            <h4>Links</h4>
+            <div class="info_links">
+              <a class="active" href="index.html">Home</a>
+              <a class="" href="about.html">About</a>
+              <a class="" href="team.html">Team</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 info_col">
+          <h4>Subscribe</h4>
+          <form action="#">
+            <input type="text" placeholder="Enter email" />
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end info section -->
+
+  <!-- jQuery -->
+  <!-- Load jQuery -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+
+  <!-- Popper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <!-- Bootstrap JS -->
+  <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+  <!-- Owl Carousel -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <!-- Custom JS -->
+  <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
+  <!-- Google Map -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+  <!-- End Google Map -->
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+
+
+ <!-- JavaScript for toggling the dialogs -->
+<script>
+
+    function openDialog() {
+        var dialog = document.getElementById("loginDialog");
+        dialog.style.display = "block";
+    }
+
+    function closeDialog() {
+        var dialog = document.getElementById("loginDialog");
+        dialog.style.display = "none";
+    }
+
+    function openRegistrationDialog() {
+        var dialog = document.getElementById("registrationDialog");
+        dialog.style.display = "block";
+       
+    }
+
+    function closeRegistrationDialog() {
+        var dialog = document.getElementById("registrationDialog");
+        dialog.style.display = "none";
+    }
+    // Function to handle "Register Here" link click
+function handleRegisterHereClick(event) {
+    event.preventDefault(); // Prevent the default behavior of clicking the link
+    openRegistrationDialog(); // Open the registration dialog
+}
+    // Function to hide flash messages after 5 seconds
+    setTimeout(function() {
+        var flashMessages = document.getElementById("flash-messages");
+        if (flashMessages) {
+            flashMessages.style.display = "none";
+        }
+    }, 5000); // Change 5000 to the desired time period in milliseconds (e.g., 3000 for 3 seconds
+
+// Attach event listener to the "Register Here" link
+var registerHereLink = document.querySelector('a[href="{{ url_for('register') }}"]');
+registerHereLink.addEventListener('click', handleRegisterHereClick);
+</script>
+
+</body>
+
+</html> 
