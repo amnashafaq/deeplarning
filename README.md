@@ -7,8 +7,12 @@ With the increasing global interest in cryptocurrencies, the legal status of cry
  ## Techniques
 - Sentiment Analysis: The project uses a machine learning model trained on the dataset to predict sentiment and perform sentimental analysis. The sentiment analysis model is built using deep learning techniques with Keras and TensorFlow.
 - Text Preprocessing: Before feeding the data into the sentiment analysis model, text preprocessing techniques such as removing URLs, punctuation, and converting text to lowercase are applied to clean the textual data.
-- Flask Web Application: The predictor is deployed as a Flask web application, allowing users to input text data through a form or upload a file to get sentiment predictions. User registration and login functionalities are implemented using Flask-Login and user data is stored in a MySQL database.
+- Flask Web Application: The predictor is deployed as a Flask web application, allowing users to input text data through a form or upload a file to get sentiment predictions. User registration and login functionalities are implemented using Flask-Login ,
 - Model Deployment: The sentiment analysis model is loaded within the Flask application and used to make predictions on user input data.
+  ## Prediction Interface
+The application features a user-friendly interface with a text box where users can input text for sentiment prediction. Users can easily obtain sentiment predictions by entering their text in the provided text box.
+
+- 
 ## Dependencies
 - Flask
 - TensorFlow
