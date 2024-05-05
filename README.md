@@ -1,8 +1,8 @@
-# Crypto Currency Legalization Predictor
-
 ## Description
-The Crypto Currency Legalization Predictor  in PAkistan is a Flask web application that predicts cryptocurrency legalization sentiment and performs sentimental analysis. Users can input text data through a form or upload a file to get sentiment predictions.
- All code in this project is original and not sourced from external websites or repositories.
+The Sentiment Analysis on Crypto Legalization in Pakistan is a Flask web application designed to analyze public sentiment regarding cryptocurrency legalization in Pakistan. It predicts cryptocurrency legalization sentiment and performs sentiment analysis on textual data. Users can input text data through a form or upload a file to get sentiment predictions.
+
+## Problem Setup
+With the increasing global interest in cryptocurrencies, the legal status of cryptocurrencies, including Bitcoin and others, is a topic of discussion in many countries, including Pakistan. This project aims to analyze public sentiment regarding the legalization of cryptocurrencies in Pakistan to understand the attitude towards this emerging technology.
  
  ## Techniques
 - Sentiment Analysis: The project uses a machine learning model trained on the dataset to predict sentiment and perform sentimental analysis. The sentiment analysis model is built using deep learning techniques with Keras and TensorFlow.
